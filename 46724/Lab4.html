@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Air Quality Index</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f8ff;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            padding: 20px;
+            margin: 0;
+            background-color: #ecf0f1;
+        }
+
+        /* Logo at top center */
+        #logo {
+            display: block;
+            margin: 20px auto;
+            height: 100px;
+        }
+
+        /* Main container */
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 20px;
+        }
+
+        /* Left panel */
+        .left-panel {
+            width: 45%;
+            padding: 20px;
+            background-color: #eaf2f8;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-right: 20px;
+            display: flex; /* Enable flexbox for child elements */
+            flex-direction: column; /* Stack children vertically */
+            height: 400px; /* Set a fixed height for demonstration */
+        }
+
+        .left-panel h2 {
+            font-size: 24px;
+            color: #3498db;
+            margin-bottom: 20px;
+        }
+
+        .left-panel p {
+            font-size: 16px;
+            color: #7f8c8d;
+            line-height: 1.6;
+        }
+
+        .AQI-Info {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            flex: 1; /* Take up available vertical space */
+            display: flex; /* To potentially control content within */
+            flex-direction: column;
+            justify-content: flex-start; /* Align content to the top */
+        }
+
+        .AQI-Info h3 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        .AQI-Info table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .AQI-Info th, .AQI-Info td {
+            padding: 8px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        .AQI-Info thead tr {
+            background-color: #3498db;
+            color: white;
+        }
+
+        .Empty1 {
+            background-color: #ffe0b2; /* Light Orange */
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px; /* Adjust padding */
+            text-align: center;
+            color: #5e3517; /* Darker Orange */
+            font-size: 18px;
+            flex: 1; /* Take up available vertical space */
+            display: flex;
+            align-items: center; /* Center text vertically */
+            justify-content: center; /* Center text horizontally */
+        }
+
+        /* Right panel */
+        .right-panel {
+            width: 55%;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex; /* To stack registration form and Empty2 */
+            flex-direction: column;
+            gap: 20px; /* Space between the boxes */
+        }
+
+        .registration-form h3 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 22px;
+        }
+
+        .registration-form label {
+            font-weight: 500;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .registration-form input,
+        .registration-form select {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border: 1px solid #bdc3c7;
+            border-radius: 6px;
+            font-size: 16px;
+            background-color: #ecf0f1;
+        }
+
+        .registration-form button {
+            width: 100%;
+            padding: 15px;
+            background-color: #3498db;
+            color: white;
+            font-weight: bold;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .registration-form button:hover {
+            background-color: #2980b9;
+        }
+
+        .Empty2 {
+            background-color: #c8e6c9; /* Light Green */
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 50px; /* Increased padding for size */
+            text-align: center;
+            color: #388e3c; /* Darker Green */
+            font-size: 20px;
+        }
+
+        .footer {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            text-align: center;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .footer p {
+            margin: 0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .left-panel {
+                width: 100%;
+                margin-bottom: 20px;
+                margin-right: 0;
+                flex-direction: column; /* Keep stacking */
+                height: auto; /* Allow height to adjust based on content */
+            }
+
+            .left-panel > div {
+                flex: 0 0 auto !important; /* Prevent stretching on smaller screens */
+                margin-bottom: 15px; /* Add some space between the stacked divs */
+            }
+
+            .Empty1, .Empty2 {
+                padding: 30px; /* Adjust padding for smaller screens */
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <img src="AIR.jpg" id="logo" alt="Logo">
+    <h1>Air Quality Index</h1>
+
+    <div class="container">
+        <div class="left-panel">
+
+            <div class="AQI-Info">
+                <h3 style="text-align: center;">AQI Levels of Different Cities</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>City</th>
+                            <th>AQI Level</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Dhaka</td>
+                            <td style="background-color: #e74c3c; color: white;">Very Unhealthy (301-500)</td>
+                        </tr>
+                        <tr>
+                            <td>Chattogram</td>
+                            <td style="background-color: #f39c12; color: white;">Unhealthy (151-200)</td>
+                        </tr>
+                        <tr>
+                            <td>Rajshahi</td>
+                            <td style="background-color: #f1c40f; color: white;">Moderate (51-100)</td>
+                        </tr>
+                        <tr>
+                            <td>Khulna</td>
+                            <td style="background-color: #2ecc71; color: white;">Good (0-50)</td>
+                        </tr>
+                        <tr>
+                            <td>Sylhet</td>
+                            <td style="background-color: #27ae60; color: white;">Good (0-50)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="Empty1">
+                This is Empty Box 1
+            </div>
+
+        </div>
+
+
+        <div class="right-panel">
+           <div class="registration-form">
+    <h3>Registration</h3>
+
+    <!-- Start of Form -->
+    <form id="registrationForm">
+
+        <label for="name">Full Name</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="email">E-mail</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="pass">Password</label>
+        <input type="password" id="pass" name="pass" required>
+
+        <label for="cPassword">Confirm Password</label>
+        <input type="password" id="cPassword" name="cPassword" required>
+
+        <label for="location">Location</label>
+        <input type="text" id="location" name="location" required>
+
+        <label for="pCode">Postal Code</label>
+        <input type="number" id="pCode" name="pCode" required>
+
+        <label for="city">Preferred City</label>
+        <select id="city" name="city" required>
+            <option value="">Select City</option>
+            <option value="dha">Dhaka</option>
+            <option value="ctg">Chattogram</option>
+            <option value="raj">Rajshahi</option>
+            <option value="khu">Khulna</option>
+            <option value="syl">Sylhet</option>
+            <option value="bar">Barishal</option>
+            <option value="rang">Rangpur</option>
+            <option value="mym">Mymenshing</option>
+        </select>
+
+        <input type="checkbox" id="terms" name="terms" required>
+        <label for="terms">I agree to the terms and conditions</label><br><br>
+
+        <button type="submit">Sign Up</button>
+
+    </form>
+    <!-- End of Form -->
+
+</div>
+
+
+            <div class="Empty2">
+                This is Empty Box 2
+            </div>
+        </div>
+    </div>
+
+        <div class="footer">
+        <p>&copy; 2025 Air Quality Index by Sparshaw</p>
+    </div>
+
+    <!-- Linking the JS file -->
+    <script src="aqiValidation.js"></script>
+</body>
+</html>
+
+
+    <script src="aqiValidation.js"></script>
+</body>
+</html>
